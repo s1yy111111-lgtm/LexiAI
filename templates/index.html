@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LexiAI</title>
+</head>
+
+<style>
+    .ai-answer {
+        white-space: pre-wrap;
+        line-height: 1.8;
+    }
+</style>
+
+
+<body>
+
+<h1>LexiAI 英语学习助手</h1>
+
+
+<form method="post">
+
+    <input 
+        type="text"
+        name="word"
+        placeholder="请输入单词"
+    >
+
+    <button type="submit">
+        查询
+    </button>
+
+</form>
+
+
+{% if data %}
+
+<h2>单词信息</h2>
+
+<p>单词：{{ data["word"] }}</p>
+
+<p>音标：{{ data["phonetic"] }}</p>
+
+<p>释义：{{ data["translation"] }}</p>
+
+<p>词性：{{ data["pos"] }}</p>
+
+
+{% endif %}
+
+
+
+{% if answer %}
+
+<h2>AI解释</h2>
+
+<div class="ai-answer">{{ answer }}</div>
+
+
+{% endif %}
+
+
+</body>
+
+</html>
