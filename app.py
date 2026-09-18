@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 
-from dictionary import load_dictionary
+from dictionary import query_word
 from ai import ask_ai
 
 
@@ -15,7 +15,6 @@ app = Flask(__name__)
 # 2. 加载词典
 # =========================
 
-dictionary = load_dictionary()
 
 print("LexiAI 词典加载完成！")
 
@@ -38,20 +37,27 @@ def home():
 
         # 获取网页输入的单词
         word = request.form["word"]
-
+        
+        data = query_word(word)
 
         # 去词典查找
 
 
         if not word:
+
             answer = "请输入要查询的单词"
 
-        elif word in dictionary:
-            data = dictionary[word]
-            answer = ask_ai(word, data)
-
         else:
-            answer = "没有找到这个单词"
+
+            data = query_word(word)
+
+            if data:
+
+                answer = ask_ai(word, data)
+
+            else:
+
+                answer = "没有找到这个单词"
 
 
     return render_template( 

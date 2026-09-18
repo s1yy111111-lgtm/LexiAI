@@ -1,13 +1,38 @@
-import csv
+import sqlite3
+
+def query_word(word):
+
+    conn = sqlite3.connect("lexicon.db")
+
+    cursor = conn.cursor()
 
 
-def load_dictionary():
-    dictionary = {}
+    cursor.execute(
+        """
+        SELECT *
+        FROM words
+        WHERE word = ?
+        """,
+        (word,)
+    )
 
-    with open("ecdict.csv", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
 
-        for row in reader:
-            dictionary[row["word"]] = row
+    result = cursor.fetchone()
 
-    return dictionary
+    conn.close()
+
+
+    if result:
+
+        return {
+            "word": result[0],
+            "phonetic": result[1],
+            "translation": result[2],
+            "definition": result[3],
+            "pos": result[4]
+        }
+
+    else:
+
+        return None
+

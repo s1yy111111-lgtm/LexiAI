@@ -34,7 +34,7 @@ def ask_ai(word, data):
                 中文释义：{data["translation"]}
                 英文释义：{data["definition"]}
                 词性：{data["pos"]}
-                标签：{data["tag"]}
+               
 
                 请用简洁中文帮助用户快速理解这个词：
 
